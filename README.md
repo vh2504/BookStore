@@ -4,19 +4,23 @@
 
 # B1: git clone https://github.com/vh2504/BookStore.git
 
-# B2: git fetch origin master (nếu không được thì :
+# B2: cd BookStore
+
+# B3: git fetch origin master (nếu không được thì :
 
     1. git remote add origin2 https://github.com/vh2504/BookStore.git
     2.git fetch origin2 master
 
 )
 
-# B3: git checkout master
+# B4: git checkout master
 
-# B4: chạy môi trường ảo tuỳ môi trường Mac/Windows
+# B5: chạy môi trường ảo tuỳ môi trường Mac/Windows
 
 - venv: MacOS: . venv/bin/activate
-- myenv: Windows : myenv\Scripts\activate
+- myenv: Windows : myenv/scripts/activate.ps1
   (Nếu không chạy được môi trường ảo, thì tạo xoá môi trường ảo cũ, và tạo 1 môi trường ảo mới rồi chạy môi trường ảo lại)
 
-# B5: flask run
+# B6: pip install -r requirements.txt
+
+# B7: flask run
