@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+<!--  -->
+{% block content %}
+<div class="tg-sectionspace tg-haslayout" id="cart">
+  <div class="container">
+    <div class="row">
+      <div id="tg-twocolumns" class="tg-twocolumns">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 pull-right">
+          {% with messages = get_flashed_messages(category_filter=["error"]) %}
+          {% if messages %} {% for message in messages %}
+          <h4
+            style="
+              padding-left: 40px;
+              color: red;
+              font-weight: 600;
+              font-size: 18px;
+            "
+          >
+            {{ message }}
+          </h4>
+          {% endfor %} {% endif %} {% endwith %}
+          <!--  -->
+          {% with success = get_flashed_messages(category_filter=["success"]) %}
+          {% if success %} {% for message in success %}
+          <h4
+            style="
+              padding-left: 40px;
+              color: green;
+              font-weight: 600;
+              font-size: 18px;
+            "
+          >
+            {{ message }}
+          </h4>
+          {% endfor %} {% endif %} {% endwith %}
+          <div id="tg-content" class="tg-content">
+            <div class="row align-items-start">
+              {% set i = 0 %} {% for sach in ListSach%} {% set i = i + 1%}
+              <div class="col-xs-4">
+                <div class="tg-postbook" style="padding: 15px 15px">
+                  <figure class="tg-featureimg">
+                    <div class="tg-bookimg">
+                      <div class="tg-frontcover">
+                        <img
+                          src="../static/{{sach.Anh}}"
+                          alt="image description"
+                        />
+                      </div>
+                      <div class="tg-backcover">
+                        <img
+                          src="images/books/img-01.jpg"
+                          alt="image description"
+                        />
+                      </div>
+                    </div>
+                  </figure>
+                  <div class="tg-postbookcontent">
+                    <div class="tg-themetagbox">
+                      <span class="tg-themetag">sale</span>
+                    </div>
+                    <div class="tg-booktitle">
+                      <h3>
+                        <a href="javascript:void(0);">{{sach.TenSach}}</a>
+                      </h3>
+                    </div>
+                    <span class="tg-bookprice">
+                      <ins>{{ "{:,.0f}".format(sach.Gia)}} đ</ins>
+                    </span>
+                    <a
+                      class="tg-btn tg-btnstyletwo"
+                      href="add-to-cart?masach={{sach.MaSach}}"
+                    >
+                      <i class="fa fa-shopping-basket"></i>
+                      <em>Thêm vào giỏ hàng</em>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              {% if loop.index is divisibleby(3) %}
+              <div class="clearfix"></div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left">
+          <aside id="tg-sidebar" class="tg-sidebar">
+            <div class="tg-widget tg-catagories">
+              <div class="tg-widgettitle">
+                <h3>Danh mục</h3>
+              </div>
+              <div class="tg-widgetcontent">
+                <ul>
+                  {% for Loai in ListLoai%}
+                  <li>
+                    <a
+                      href="home?MaLoai={{Loai.MaLoai}}"
+                      style="padding-left: 10px"
+                      >{{Loai.TenLoai}}</a
+                    >
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

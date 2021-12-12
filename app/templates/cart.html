@@ -1,0 +1,208 @@
+{% extends "base.html" %} {% block content %}
+<div class="tg-sectionspace tg-haslayout" id="cart">
+  <div class="container">
+    <div class="row">
+      <div id="tg-twocolumns" class="tg-twocolumns">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-12 pull-right">
+          <div id="tg-content" class="tg-content">
+            {% with messages = get_flashed_messages(category_filter=["error"])
+            %} {% if messages %} {% for message in messages %}
+            <h4
+              style="
+                padding-left: 40px;
+                color: red;
+                font-weight: 600;
+                font-size: 18px;
+              "
+            >
+              {{ message }}
+            </h4>
+            {% endfor %} {% endif %} {% endwith %}
+            <!--  -->
+            {% with success = get_flashed_messages(category_filter=["success"])
+            %} {% if success %} {% for message in success %}
+            <h4
+              style="
+                padding-left: 40px;
+                color: green;
+                font-weight: 600;
+                font-size: 18px;
+              "
+            >
+              {{ message }}
+            </h4>
+            {% endfor %} {% endif %} {% endwith %}
+            <div class="list-cart">
+              {% if hasCart == True and session['sl'] > 0 %}
+              <table class="table table-borderless table-hover">
+                <thead>
+                  <tr>
+                    <th>Ảnh</th>
+                    <th style="max-width: 200px">Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for sach in session["gh"]: %}
+                  <tr>
+                    <form action="detail" method="post">
+                      <input
+                        type="hidden"
+                        name="masach"
+                        value='{{sach["masach"]}}'
+                      />
+                      <td>
+                        <img
+                          src='../static/{{sach["anh"]}}'
+                          width="120"
+                          height="120"
+                          alt=""
+                        />
+                      </td>
+                      <td style="max-width: 200px" class="text-left">
+                        {{sach["tensach"]}}
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          width="50"
+                          height="46"
+                          name="soluong"
+                          min="1"
+                          value='{{sach["soluong"]}}'
+                        />
+                      </td>
+                      <td>
+                        {{ "{:,.0f}".format(sach["soluong"] * sach["gia"])}}
+                      </td>
+                      <td>
+                        <button
+                          type="submit"
+                          name="type"
+                          value="edit"
+                          class="btn btn-primary"
+                        >
+                          <i
+                            class="fa fa-pencil-square-o"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                        <button
+                          type="submit"
+                          name="type"
+                          value="delete"
+                          class="btn btn-danger"
+                        >
+                          <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </form>
+                  </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+
+              <div class="row px-5">
+                <div class="col-lg-7" style="padding-left: 50px">
+                  <a href="{{ url_for('home')}}"" class="btn btn-info">Tiếp tục mua hàng</a>
+                  <a href="{{ url_for('payment')}}" class="btn btn-success"
+                    >Thanh toán</a
+                  >
+                </div>
+                <div class="col-lg-5">
+                  <p style="font-size: 18px; line-height: 36px">
+                    Tổng tiền :
+                    <span
+                      style="
+                        font-weight: 500;
+                        font-size: 24px;
+                        color: rgb(209, 16, 122);
+                      "
+                      >{{tongTien}}đ</span
+                    >
+                  </p>
+                </div>
+              </div>
+              {% else %}
+              <h4 style="color: red; font-weight: 600; font-size: 24px">
+                Không có sản phẩm trong giỏ hàng.
+              </h4>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left">
+          <aside id="tg-sidebar" class="tg-sidebar">
+            <div class="tg-widget tg-catagories">
+              <div class="tg-widgettitle">
+                <h3>Categories</h3>
+              </div>
+              <div class="tg-widgetcontent">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Art &amp; Photography</span><em>28245</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Biography</span><em>4856</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Children’s Book</span><em>8654</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Craft &amp; Hobbies</span><em>6247</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Crime &amp; Thriller</span><em>888654</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Fantasy &amp; Horror</span><em>873144</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Fiction</span><em>18465</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Fod &amp; Drink</span><em>3148</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Graphic, Anime &amp; Manga</span><em>77531</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"
+                      ><span>Science Fiction</span><em>9247</em></a
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);"><span>View All</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

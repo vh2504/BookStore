@@ -1,0 +1,70 @@
+{% extends "adminbase.html" %}
+{% block content %}
+<h2 style="text-align: center;"> Hóa Đơn </h2>
+<div class="divTable">
+    <div class="headRow">
+        <div class="divCell divCell2">Họ Tên</div>
+        <div class="divCell" >SDT</div>
+        <div class="divCell">Địa Chỉ</div>
+        <div class="divCell divCell2">Email Liên lạc</div>
+        <div class="divCell divCell3"> Ngày </div>
+        <div class="divCell divCell3"> Xác Nhận</div>
+        <div class="divCell divCell2"> Xem Chi Tiết Hóa Đơn</div>
+
+    </div>
+    {% for hd,kh in rs %}
+    <div class="divRow adminhd">
+        <form method="post" action="{{url_for('adminhoadon')}}">
+        <div class="divCell divCell2"> {{kh.HoTen}}</div>
+        <div class="divCell">{{kh.SDT}}</div>
+        <div class="divCell">{{kh.DiaChi}}</div>
+        <div class="divCell divCell2">{{kh.Email}}</div>
+
+        <div class="divCell divCell3"> {{hd.NgayMua.date()}}</div>
+        {% if hd.damua %}
+        <div class="divCell divCell3" style="font-weight: bold;">Đã xác nhận</div>
+        <div class="divCell divCell2"> <a href="{{url_for('adminhoadon')}}?MaHDXem={{hd.MaHoaDon}}"> Xem Chi Tiết Hóa Đơn</a></div>
+        {% else %} 
+        <div class="divCell divCell3"><button name="btnXacNhan" value="{{hd.MaHoaDon}}"  class="btn btn-primary"> Xác nhận</button></div>
+        <div class="divCell divCell2"> <a href="{{url_for('adminhoadon')}}?MaHDXem={{hd.MaHoaDon}}"> Xem Chi Tiết Hóa Đơn</a></div>
+        
+        {% endif %}
+    </form>
+    </div>
+    
+    {% endfor %}
+</div>
+{% if rscthd!=None %}
+
+<h2 style="text-align: center;"> Chi Tiết Hóa Đơn </h2>
+
+<div class="divTable">
+    <div class="headRow">
+        <div class="divCell divCell3">Ảnh</div>
+        <div class="divCell divCell3">Số tập</div>
+        <div class="divCell divCell3" >Số Lượng Mua</div>
+        <div class="divCell">Giá</div>
+        <div class="divCell divCell3">Thành Tiền</div>
+        <div class="divCell divCell3"> Xác Nhận</div>
+    </div>
+    {% for cthd,sach in rscthd %}
+    <div class="divRow adminhd">
+        <form method="post" action="{{url_for('adminhoadon')}}?MaHDXem={{cthd.MaHoaDon}}">
+            <div class="divCell divCell3"><img class="imgsach" src="../static/{{sach.Anh}}" alt=""></div>
+            <div class="divCell divCell3">{{sach.SoTap}}</div>
+            <div class="divCell divCell3">{{cthd.SoLuongMua}}</div>
+            <div class="divCell" >{{sach.Gia}} đ</div>
+            <div class="divCell divCell3" >{{cthd.SoLuongMua*sach.Gia}} đ</div>
+            {% if cthd.damua %}
+            <div class="divCell divCell3" style="font-weight: bold;">Đã xác nhận</div>
+            {% else %} 
+            <div class="divCell divCell3"><button name="btnXacNhanCTHD" value="{{cthd.MaCTHD}}"  class="btn btn-primary"> Xác nhận</button></div>
+            {% endif %}
+            
+        </form>
+    </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+{% endblock %}}

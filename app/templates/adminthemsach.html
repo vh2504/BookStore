@@ -1,0 +1,43 @@
+{% extends "adminbase.html" %}
+
+{% block content %}
+<div class="divTable">
+    <div class="headRow">
+        <div class="divCell" >Ảnh</div>
+        <div class="divCell">Mã Sách</div>
+        <div class="divCell divCell2">Tên sách</div>
+        <div class="divCell" >Số Lượng</div>
+        <div class="divCell">Giá</div>
+        <div class="divCell divCell2">Mã Loại</div>
+        <div class="divCell" >Số Tập</div>
+        <div class="divCell divCell3"> Ngày Nhập</div>
+        <div class="divCell divCell2">Tác Giả</div>
+        <div class="divCell divCell3"> Thêm Sách</div>
+    </div>
+
+   
+    <div class="divRow">
+            <form method="Post" action="{{url_for('adminthemsach')}}" enctype="multipart/form-data">
+            <div class="divCell"><input type="file" name="file"></div>
+            <div class="divCell"><input class="input" name ="MaSach"value=""></div>
+            <div class="divCell divCell2"><input name ="TenSach" class="input input2" value=""></div>
+            <div class="divCell"><input class="input" name ="SoLuong" value=""></div>
+            <div class="divCell"><input class="input"name ="Gia" value=""></div>
+            <div class="divCell divCell2" >
+                <select name="MaLoai" class=" input input2" style="height: 20px;">
+                    {% for l in ListLoai%}
+                    <option value="{{l.MaLoai}}">{{l.MaLoai}}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+            <div class="divCell"><input class="input" name ="SoTap"value=""></div>
+            <div class="divCell divCell3"><input class="input input3" name ="NgayNhap" value=""></div>
+            <div class="divCell divCell2"><input class="input input2" name ="TacGia"value=""></div>
+            <div class="divCell divCell3"> <button name="btnThem"class="btn btn-primary"> Thêm +</button></div>
+        </form>
+    </div>
+    
+
+
+</div>
+{% endblock %}}

@@ -1,0 +1,145 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="box" style="padding: 10px 20px">
+        <h2>Thanh toán</h2>
+        <div class="address">
+          <h4>Địa chỉ nhận hàng</h4>
+          <div class="row">
+            <div class="col-lg-6">
+              <form action="/action_page.php">
+                <div class="form-group">
+                  <label for="email">Họ tên</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nhập họ tên"
+                    value="{{kh.HoTen}}"
+                    id="email"
+                    disabled
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Nhập Email"
+                    value="{{kh.Email}}"
+                    disabled
+                    id="pwd"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="col-lg-6">
+              <form action="/action_page.php">
+                <div class="form-group">
+                  <label for="email">Số điện thoại</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Nhập số điện thoại"
+                    value="{{kh.SDT}}"
+                    disabled
+                    id="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Địa chỉ</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nhập địa chỉ"
+                    value="{{kh.DiaChi}}"
+                    disabled
+                    id="pwd"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="pttt">
+          <h4>Chọn phương thức thanh toán</h4>
+
+          <div class="form-check-inline ml-3 pl-3">
+            <label class="form-check-label">
+              <input
+                type="radio"
+                class="form-check-input pl-3"
+                name="optradio"
+                style="margin: 0 20px; display: inline"
+              />Thanh toán khi nhận hàng
+            </label>
+          </div>
+          <div class="form-check-inline ml-3 pl-3">
+            <label class="form-check-label">
+              <input
+                type="radio"
+                class="form-check-input pl-3"
+                name="optradio"
+                style="margin: 0 20px; display: inline"
+              />Thanh toán online
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <a
+            href="{{ url_for('confirm_payment')}}"
+            class="btn btn-danger form-control"
+            style="
+              background: #b22565;
+              color: white;
+              display: block;
+              padding: 25px 20px !important;
+              line-height: 5px;
+              margin-top: 20px;
+            "
+            >Đặt mua</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4" style="padding: 10px 20px">
+      <h4>Chi tiết đơn hàng</h4>
+      <div class="row">
+        <table class="table table-borderless table-hover" style="border: none">
+          <tbody>
+            {% for sach in session["gh"]%}
+            <tr
+              style="
+                border-bottom: 1px solid #65c931 !important;
+                padding-bottom: 5px;
+              "
+            >
+              <td>
+                <img
+                  src="../static/{{ sach.anh}}"
+                  width="80"
+                  height="80"
+                  alt=""
+                />
+              </td>
+              <td style="max-width: 200px" class="text-left">
+                {{sach.tensach}}
+              </td>
+              <td>{{sach.soluong}} x {{"{:,.0f}".format(sach.gia)}} đ</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="row text-right">
+        <h4>Tổng cộng : {{tongTien}}đ</h4>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

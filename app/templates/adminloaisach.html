@@ -1,0 +1,29 @@
+{% extends "adminbase.html" %}
+{% block content %}
+
+<div class="divTable divTableloaisach">
+    <div class="headRow">
+        <div class="divCell divCell2" >Mã Loại</div>
+        <div class="divCell divCell2">Tên Loại</div>
+    </div>
+    <div class="divRow">
+        <form method="post" action="{{url_for('adminloaisach')}}">
+        <div class="divCell divCell4"><input class="input input2" name ="MaLoaiThem" ></div> 
+        <div class="divCell divCell4"><input class="input input2" name ="TenLoaiThem" ></div> 
+        <div class="divCell divCell2"><button name="btnThem" class="btn btn-primary"> Thêm +</button></div>
+        </form>
+    </div>
+    {% for l in ListLoai %}
+    <form method="post" action="{{url_for('adminloaisach')}}">
+    <div class="divRow">
+        <div class="divCell divCell4"><input class="input input2" name ="MaLoaiBanDau" value="{{l.MaLoai}}" style="display: none;"></div> 
+        <div class="divCell divCell4"><input class="input input2" name ="MaLoai" value="{{l.MaLoai}}"></div> 
+        <div class="divCell divCell4"><input class="input input2" name ="TenLoai" value="{{l.TenLoai}}"></div> 
+        <div class="divCell"><button name="btnSua" value="btnSua" class="btn btn-primary"> Sửa</button></div>
+        <div class="divCell"><button name="btnXoa" value="btnXoa" class="btn btn-danger"> Xóa</button></div>
+    </div>
+    </form>
+    {% endfor %}
+</div>
+
+{% endblock %}}

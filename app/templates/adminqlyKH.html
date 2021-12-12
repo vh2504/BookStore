@@ -1,0 +1,29 @@
+{% extends "adminbase.html" %}
+{% block content %}
+
+<div class="divTable divTableloaisach">
+    <div class="headRow">
+        <div class="divCell" >Mã KH</div>
+        <div class="divCell divCell2">Họ Tên</div>
+        <div class="divCell">Địa Chỉ</div>
+        <div class="divCell" >SDT</div>
+        <div class="divCell divCell2">Email</div>
+        <div class="divCell">Tên ĐN</div>
+        <div class="divCell"> Xóa</div>
+    </div>
+    {% for k in kh %}
+    <form method="post" action="{{url_for('adminqlyKH')}}">
+    <div class="divRow">
+        <div class="divCell">{{k.MaKH}}</div>
+        <div class="divCell divCell2">{{k.HoTen}}</div>
+        <div class="divCell">{{k.DiaChi}}</div>
+        <div class="divCell">{{k.SDT}}</div>
+        <div class="divCell divCell2">{{k.Email}}</div>
+        <div class="divCell">{{k.Username}}</div>
+        <div class="divCell"><button name="btnXoa" value="{{k.MaKH}}" class="btn btn-danger"> Xóa</button></div>
+    </div>
+    </form>
+    {% endfor %}
+
+</div>
+{% endblock %}}

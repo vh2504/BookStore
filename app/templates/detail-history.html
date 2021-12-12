@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row" style="padding: 10px 20px">
+    <h2 style="text-align: center">Chi tiết đơn hàng</h2>
+    <h4 style="text-align: center">Mã đơn hàng: #1</h4>
+    <div class="box-order" style="border: 1px solid#b22565; padding: 20px 38px">
+      <table
+        class="table table-borderless"
+        style="border-collapse: separate; border-spacing: 0 1rem !important; border:none"
+      >
+        <thead>
+          <tr>
+            <th style="border: 0px">Ảnh</th>
+            <th style="max-width: 200px; border: 0px">Tên sách</th>
+            <th style="border: 0px">Số lượng</th>
+            <th style="border: 0px">Đơn giá</th>
+            <th style="border: 0px">Thành tiền</th>
+            <th style="border: 0px">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for hd,cthd,sach in rs %}
+          <tr class="" style="margin-top: 30px; font-size: 16px;">
+            <td>
+              <img
+                src="../static/{{sach.Anh}}"
+                width="130"
+                height="130"
+                alt=""
+              />
+            </td>
+            <td style="max-width: 200px">{{sach.TenSach}}</td>
+            <td>{{cthd.SoLuongMua}}</td>
+            <td>{{"{:,.0f}".format(sach.Gia)}}</td>
+            <td>{{"{:,.0f}".format(sach.Gia * cthd.SoLuongMua)}}</td>
+            <td>
+                {%if cthd.damua == 1%}
+                <span class="badge badge-success" style="background: #5cb85c"
+                >Đã xác nhận</span
+                {%else %}
+                    <span class="badge badge-warning" style="background: #e98d15"
+                    >Chờ xác nhận</span
+                >
+                {%endif %}
+            </td>
+          </tr>
+          <tr class="spacer"></tr>
+          {% endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

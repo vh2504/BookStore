@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+  <div class="row" style="padding: 10px 20px">
+    <h2 style="text-align: center">Lịch sử mua hàng</h2>
+    <div class="box-order" style="border: 1px solid#b22565; padding: 20px 38px">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th style="border: 0px">Mã đơn hàng</th>
+            <th style="max-width: 200px; border: 0px">Trạng thái</th>
+            <th style="border: 0px">Ngày mua</th>
+            <th style="border: 0px">Tổng cộng</th>
+            <th style="border: 0px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for kh,hd in rs %}
+          <tr style=" font-size: 18px;">
+            <input type="hidden" name="masach" value="b18" />
+            <td>#{{hd.MaHoaDon}}</td>
+            <td style="max-width: 200px">
+              {% if hd.damua == 1 %}
+              <span class="badge badge-success" style="background: #5cb85c"
+                >Đã mua</span
+              >
+              {% else %}
+              <span class="badge badge-warning" style="background: #e98d15"
+                >Đang xử lý</span
+              >
+              {%endif %}
+            </td>
+            <td>{{hd.NgayMua.strftime("%d-%m-%Y %H:%M:%S")}}</td>
+            <td>{{"{:,.0f}".format(tinhTien(hd.MaHoaDon))}}</td>
+            <td>
+              <u><a href={{ url_for("detailHistory" , id=hd.MaHoaDon) }}>Xem chi tiết</a></u>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

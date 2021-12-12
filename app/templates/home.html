@@ -1,0 +1,52 @@
+
+{% extends "base.html" %} 
+{% block content %}
+<div class="containloai">
+  <div class="tg-title">
+    <h3>Danh Mục Loại</h3>
+  </div>
+  <div class="tg-widgetcontent">
+    <ul>
+        {% for Loai in ListLoai %}
+      <li>
+        <a href="home?MaLoai={{Loai.MaLoai}}">{{Loai.TenLoai}}</a>
+      </li> 
+        {% endfor %}                
+    </ul>
+  </div>
+</div>    
+
+
+
+<div class="wrapper row3 sachtable">
+  <main class="hoc container clear"> 
+    <!-- main body -->
+    <!-- ################################################################################################ -->
+    
+    <section id="introblocks">
+      <ul class="nospace group">
+        {% for Sach in ListSach %}
+        <li class="one_third">
+          <figure style="text-align: center;"><a class="imgover" href="#"><img style="width: 200px;height: 200px;" src="../static/{{Sach.Anh}}" alt=""></a>
+            <figcaption style="text-align: center;">
+              <h6 style="font-size: 15px;" class="heading">{{Sach.TenSach}}</h6>
+              <div>{{Sach.TacGia}}</div>
+              <div>Tập:{{Sach.SoTap}}</div>
+              <div>{{Sach.Gia}}đ</div>
+              <a href="" class="btn btn-primary"> <i class="	glyphicon glyphicon-shopping-cart"></i> Mua Sách</a>
+            </figcaption>
+          </figure>
+        </li>
+        {% endfor %} 
+      </ul>
+    </section>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+       
+      
+
+
+{% endblock %}
