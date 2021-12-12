@@ -8,6 +8,9 @@
 
 # B3: git checkout master
 
-# chạy môi trường ảo tuỳ môi trường Mac/Windows
+# B4: chạy môi trường ảo tuỳ môi trường Mac/Windows
 
-# flask run
+- venv: MacOS: . venv/bin/activate
+- myenv: Windows : myenv\Scripts\activate
+
+# B5: flask run
